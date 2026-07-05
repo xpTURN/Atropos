@@ -1,0 +1,32 @@
+<!--
+  Headless / CI test project for Atropos (net8, `dotnet test`). Runs the shared Unity-agnostic tests
+  (../../Tests/*.cs: RFC 8032 KAT, boundary / S<L malleability, Zero-GC, thread-safety) plus the
+  BouncyCastle differential in this folder. BouncyCastle is a test-only oracle — the shipped Atropos
+  package remains dependency-free. This project lives under Server~ so Unity ignores it.
+-->
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>disable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <IsPackable>false</IsPackable>
+    <RootNamespace>xpTURN.Atropos.Tests</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- shared, engine-agnostic tests (also compiled by the Unity Tests asmdef) -->
+    <Compile Include="..\..\Tests\*.cs" Link="Shared\%(Filename)%(Extension)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\xpTURN.Atropos\xpTURN.Atropos.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BouncyCastle.Cryptography" Version="2.5.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
+    <PackageReference Include="NUnit" Version="3.14.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.6.0" />
+  </ItemGroup>
+</Project>

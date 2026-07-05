@@ -1,0 +1,59 @@
+<!--
+  xpTURN.Atropos — the .NET library / NuGet package for Atropos (Zero-GC pure C# Ed25519, RFC 8032).
+  Compiles the same Runtime/*.cs the Unity asmdef uses. Dependency-free. Also the ProjectReference target
+  for the Server~ tests / benchmark, and the packable project for NuGet (dotnet pack).
+  Vendored ref10 math + SHA-512: Chaos.NaCl (public domain) under Runtime/ThirdParty/Ed25519.
+-->
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.1;net8.0</TargetFrameworks>
+    <LangVersion>latest</LangVersion>
+    <Nullable>disable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <AssemblyName>xpTURN.Atropos</AssemblyName>
+    <RootNamespace>xpTURN.Atropos</RootNamespace>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+  </PropertyGroup>
+
+  <!-- NuGet package metadata -->
+  <PropertyGroup>
+    <IsPackable>true</IsPackable>
+    <PackageId>xpTURN.Atropos</PackageId>
+    <Authors>xpTURN</Authors>
+    <Description>Dependency-free, Zero-GC pure C# Ed25519 (RFC 8032, plain PureEdDSA) sign/verify primitive. IL2CPP/AOT-safe; usable from .NET, Unity, and Godot. Non-malleable (rejects non-canonical S).</Description>
+    <PackageTags>ed25519;cryptography;signature;zero-gc;unity;godot;rfc8032</PackageTags>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/xpTURN/Atropos</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageProjectUrl>https://github.com/xpTURN/Atropos</PackageProjectUrl>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <Deterministic>true</Deterministic>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <!-- Public API XML docs exist on Ed25519; the size-constant fields are self-describing. -->
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+  </PropertyGroup>
+
+  <!-- Tag-driven SemVer: an `atropos-v0.1.0` git tag → package 0.1.0 (no tag → 0.0.0-alpha prerelease).
+       The `atropos-` prefix isolates Atropos versioning from other projects sharing this repo's tag namespace. -->
+  <ItemGroup>
+    <PackageReference Include="MinVer" Version="5.0.0" PrivateAssets="all" />
+  </ItemGroup>
+  <PropertyGroup>
+    <MinVerTagPrefix>atropos-v</MinVerTagPrefix>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <AtroposRuntimeRoot>$(MSBuildThisFileDirectory)..\..\Runtime</AtroposRuntimeRoot>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="$(AtroposRuntimeRoot)\**\*.cs"
+             Link="Runtime\%(RecursiveDir)%(Filename)%(Extension)" />
+    <!-- Ship the package README (shown on nuget.org). -->
+    <None Include="$(MSBuildThisFileDirectory)..\..\README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+</Project>

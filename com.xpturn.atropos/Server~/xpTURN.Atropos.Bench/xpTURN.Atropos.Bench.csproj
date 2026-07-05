@@ -1,0 +1,27 @@
+<!--
+  Informational micro-benchmark for Atropos Ed25519 (net8, `dotnet run -c Release`). Compares Atropos
+  against BouncyCastle (the implementation it replaces) on sign/verify/derive latency and per-call
+  allocation. Not part of the test suite and not shipped — lives under Server~ so Unity ignores it.
+  BouncyCastle is a benchmark-only baseline; the Atropos package itself stays dependency-free.
+-->
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>disable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+    <ServerGarbageCollection>false</ServerGarbageCollection>
+    <IsPackable>false</IsPackable>
+    <RootNamespace>xpTURN.Atropos.Bench</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\xpTURN.Atropos\xpTURN.Atropos.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BouncyCastle.Cryptography" Version="2.5.1" />
+  </ItemGroup>
+</Project>

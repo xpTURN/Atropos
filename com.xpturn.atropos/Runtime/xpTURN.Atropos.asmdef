@@ -1,0 +1,14 @@
+{
+    "name": "xpTURN.Atropos",
+    "rootNamespace": "xpTURN.Atropos",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": true
+}

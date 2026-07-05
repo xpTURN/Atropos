@@ -1,0 +1,29 @@
+{
+  "name": "com.xpturn.atropos",
+  "version": "0.1.0",
+  "displayName": "xpTURN.Atropos",
+  "description": "Zero-GC-oriented pure C# Ed25519 (RFC 8032, plain PureEdDSA) sign/verify primitive. Dependency-free, IL2CPP/AOT-safe, engine-agnostic (Unity + Godot). Vendored ref10 math (Chaos.NaCl, public domain). Public surface: xpTURN.Atropos.Ed25519.",
+  "unity": "2022.3",
+  "license": "Apache-2.0",
+  "documentationUrl": "https://github.com/xpTURN/Atropos/blob/main/com.xpturn.atropos/README.md",
+  "changelogUrl": "https://github.com/xpTURN/Atropos/blob/main/com.xpturn.atropos/CHANGELOG.md",
+  "licensesUrl": "https://github.com/xpTURN/Atropos/blob/main/com.xpturn.atropos/LICENSE.md",
+  "dependencies": {
+  },
+  "keywords": [
+    "xpTURN",
+    "Atropos",
+    "Ed25519",
+    "cryptography",
+    "signature",
+    "zero-gc",
+    "rfc8032",
+    "unity",
+    "godot"
+  ],
+  "author": {
+    "name": "xpTURN",
+    "email": "xpturn@gmail.com",
+    "url": "https://github.com/xpTURN"
+  }
+}

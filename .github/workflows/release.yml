@@ -1,0 +1,58 @@
+name: ci-release
+
+# Test on every push/PR; pack + publish to NuGet only on a `v*` tag.
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+env:
+  LIB: com.xpturn.atropos/Server~/xpTURN.Atropos/xpTURN.Atropos.csproj
+  TESTS: com.xpturn.atropos/Server~/xpTURN.Atropos.Tests/xpTURN.Atropos.Tests.csproj
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0          # full history + tags for MinVer
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Test (RFC 8032 KAT · BC differential · boundary · Zero-GC · thread-safety · field-diff)
+        run: dotnet test "$TESTS" -c Release --nologo
+
+  publish:
+    needs: test
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    environment: nuget          # matches the NuGet Trusted Publishing policy's Environment (set it to "nuget", or leave the policy's Environment blank)
+    permissions:
+      id-token: write           # OIDC token for NuGet Trusted Publishing (no stored API key)
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: NuGet Trusted Publishing login (OIDC → short-lived key)
+        uses: NuGet/login@v1
+        id: nuget-login
+        with:
+          user: xpTURN          # the nuget.org account/org that owns the Trusted Publishing policy
+      - name: Pack (MinVer derives version from the tag)
+        run: dotnet pack "$LIB" -c Release -o artifacts
+      - name: Push to NuGet
+        run: >
+          dotnet nuget push "artifacts/*.nupkg"
+          --api-key "${{ steps.nuget-login.outputs.NUGET_API_KEY }}"
+          --source https://api.nuget.org/v3/index.json
+          --skip-duplicate
