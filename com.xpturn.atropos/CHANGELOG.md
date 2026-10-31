@@ -1,5 +1,24 @@
 # Changelog
 
+## [0.1.2] — 2026-10-31
+
+No code or API changes — the package contents are the same as 0.1.1.
+
+### Added
+- Changelog entry for 0.1.1.
+
+### Tested
+- AtroposTests (Unity EditMode) on Unity 6000.3.27f2 — all pass.
+
+## [0.1.1] — 2026-07-05
+
+No code or API changes — the package contents are the same as 0.1.0.
+
+### Fixed
+- Release workflow: runs on `atropos-v*` tags, the prefix the version is derived from (`MinVerTagPrefix`).
+  It listened for `v*`, so the 0.1.0 tag never started the NuGet publish job — 0.1.1 is the first
+  `xpTURN.Atropos` version on NuGet.
+
 ## [0.1.0] — 2026-07-05
 
 ### Added

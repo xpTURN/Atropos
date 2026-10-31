@@ -15,7 +15,7 @@
 #   Tools/run-all-tests.sh -h | --help
 #
 # Environment variables:
-#   UNITY_PATH   Override the Unity executable path (default: Hub 6000.3.9f1)
+#   UNITY_PATH   Override the Unity executable path (default: Hub 6000.3.27f2)
 #
 # Exit code: non-zero if anything fails (CI friendly).
 
@@ -29,7 +29,7 @@ REPO_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
 RESULTS_DIR="${REPO_ROOT}/Logs/test-results"
 
 # Unity project & version
-UNITY_VERSION="6000.3.9f1"
+UNITY_VERSION="6000.3.27f2"
 UNITY_PROJECT="${REPO_ROOT}/Samples/AtroposTests"
 UNITY_PATH="${UNITY_PATH:-/Applications/Unity/Hub/Editor/${UNITY_VERSION}/Unity.app/Contents/MacOS/Unity}"
 

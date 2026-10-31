@@ -1,6 +1,6 @@
 {
   "name": "com.xpturn.atropos",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "displayName": "xpTURN.Atropos",
   "description": "Zero-GC-oriented pure C# Ed25519 (RFC 8032, plain PureEdDSA) sign/verify primitive. Dependency-free, IL2CPP/AOT-safe, engine-agnostic (Unity + Godot). Vendored ref10 math (Chaos.NaCl, public domain). Public surface: xpTURN.Atropos.Ed25519.",
   "unity": "2022.3",
